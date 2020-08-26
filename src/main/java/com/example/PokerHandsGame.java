@@ -48,9 +48,15 @@ public class PokerHandsGame {
             numbers.add(card.getNumber());
             return card;
         }).collect(Collectors.toList());
-        if (numbers.size() == 5 && (Integer)numbers.toArray()[4] - (Integer)numbers.toArray()[0] != 4 && types.size() != 1) {
-            return 1;
+        boolean straight = numbers.size() == 5 && (Integer) numbers.toArray()[4] - (Integer) numbers.toArray()[0] == 4;
+        if (!straight) {
+            if (numbers.size() == 5 && types.size() != 1) {
+                return 1;
+            } else if (numbers.size() == 4 && types.size() != 1) {
+                return 2;
+            }
         }
+
         return 0;
     }
 }
