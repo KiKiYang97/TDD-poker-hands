@@ -1,5 +1,6 @@
 package com.example;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class PokerHandsGame {
         }).collect(Collectors.toList());
     }
 
-    public int judgeCard(List<Card> cards) {
+    public double judgeCard(List<Card> cards) {
         Set<String> types = new HashSet<>();
         cards = cards.stream().map(card -> {
             types.add(card.getType());
@@ -50,36 +51,101 @@ public class PokerHandsGame {
         if (!straight) {
             if (types.size() != 1) {
                 if (numbers.size() == 5) {
-                    return 1;
+                    return isHighCard(cards);
                 } else if (numbers.size() == 4) {
-                    return 2;
+                    return isPair(cards);
                 } else if (numbers.size() == 3) {
                     if (cards.get(0).getNumber().equals(cards.get(2).getNumber()) ||
                             cards.get(1).getNumber().equals(cards.get(3).getNumber()) ||
                             cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
-                        return 4;
+                        return isThreeOfAKind(cards);
                     } else {
-                        return 3;
+                        return isTwoPair(cards, numbers);
                     }
-                } else if (numbers.size() == 2) {
+                } else {
                     if (cards.get(0).getNumber().equals(cards.get(3).getNumber()) ||
                         cards.get(1).getNumber().equals(cards.get(4).getNumber())) {
-                        return 8;
+                        return isFourOfAKind(cards);
                     } else {
-                        return 7;
+                        return isFullHouse(cards);
                     }
                 }
             } else {
-                return 6;
+                return isFlush(cards);
             }
         } else {
             if (types.size() != 1) {
-                return 5;
+                return isStraight(cards);
             } else {
-                return 9;
+                return isStraightFlush(cards);
             }
         }
+    }
 
-        return 0;
+    private double isStraightFlush(List<Card> cards) {
+        return 9.0 + cards.get(4).getNumber() * 0.01;
+    }
+
+    private double isFourOfAKind(List<Card> cards) {
+        if (cards.get(0).getNumber().equals(cards.get(3).getNumber())) {
+            return 8.0 + cards.get(0).getNumber() * 0.01;
+        } else {
+            return 8.0 + cards.get(4).getNumber() * 0.01;
+        }
+    }
+
+    private double isFullHouse(List<Card> cards) {
+        if (cards.get(0).getNumber().equals(cards.get(2).getNumber())) {
+            return 7.0 + cards.get(0).getNumber() * 0.01;
+        } else {
+            return 7.0 + cards.get(4).getNumber() * 0.01;
+        }
+    }
+
+    private double isFlush(List<Card> cards) {
+        return 6.0 + cards.get(4).getNumber() * 0.01;
+    }
+
+    private double isStraight(List<Card> cards) {
+        return 5.0 + cards.get(4).getNumber() * 0.01;
+    }
+
+    private double isThreeOfAKind(List<Card> cards) {
+        if (cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
+            return 4.0 + cards.get(4).getNumber() * 0.01 + cards.get(1).getNumber() * 0.0001;
+        } else {
+            return 4.0 + cards.get(2).getNumber() * 0.01 + cards.get(4).getNumber() * 0.0001;
+        }
+    }
+
+    private double isTwoPair(List<Card> cards, Set<Integer> numbers) {
+        double result = 0d;
+        int highCardIndex = 4;
+        for (int i = 1; i < 5; i++) {
+            if (cards.get(i).getNumber().equals(cards.get(i - 1).getNumber())) {
+                numbers.remove(cards.get(i).getNumber());
+                result = cards.get(i).getNumber() * 0.01 + result * 0.01;
+            }
+        }
+        BigDecimal b = new BigDecimal(3.0 + result + (int)numbers.stream().findFirst().get() * 0.000001);
+        return b.setScale(6,   BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    private double isPair(List<Card> cards) {
+        double result = 0d;
+        for (int i = 0; i < 4; i++) {
+            if (cards.get(i).getNumber().equals(cards.get(i + 1).getNumber())) {
+                if (i == 3) {
+                    result = 2.0 + cards.get(i).getNumber() * 0.01 + cards.get(i - 1).getNumber() * 0.0001;
+                } else {
+                    result = 2.0 + cards.get(i).getNumber() * 0.01 + cards.get(4).getNumber() * 0.0001;
+                }
+            }
+        }
+        return result;
+    }
+
+    private double isHighCard(List<Card> cards) {
+        return 1.0 + cards.get(4).getNumber() * 0.01;
     }
 }

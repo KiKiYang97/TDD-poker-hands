@@ -47,9 +47,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(13, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(1,judgeNumber);
+        assertEquals(1.13,judgeNumber);
     }
 
     @Test
@@ -62,24 +62,24 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(13, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(2,judgeNumber);
+        assertEquals(2.0313,judgeNumber);
     }
 
     @Test
     public void should_return_two_pairs_when_judge_card_given_3H_3D_5S_9C_5D() {
         // given
         Card  card1 = new Card(3, "H");
-        Card  card2 = new Card(3, "D");
+        Card  card2 = new Card(5, "D");
         Card  card3 = new Card(5, "S");
         Card  card4 = new Card(9, "C");
-        Card  card5 = new Card(5, "D");
+        Card  card5 = new Card(9, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(3,judgeNumber);
+        assertEquals(3.090503,judgeNumber);
     }
 
     @Test
@@ -92,9 +92,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(3, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(4,judgeNumber);
+        assertEquals(4.0309,judgeNumber);
     }
 
     @Test
@@ -107,9 +107,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(7, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(5,judgeNumber);
+        assertEquals(5.07,judgeNumber);
     }
 
     @Test
@@ -122,9 +122,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(13, "H");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(6,judgeNumber);
+        assertEquals(6.13,judgeNumber);
     }
 
     @Test
@@ -137,9 +137,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(3, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(7,judgeNumber);
+        assertEquals(7.03,judgeNumber);
     }
 
     @Test
@@ -152,9 +152,9 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(3, "D");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(8,judgeNumber);
+        assertEquals(8.03,judgeNumber);
     }
 
     @Test
@@ -167,8 +167,8 @@ public class PokerHandsGameTest {
         Card  card5 = new Card(7, "H");
         List<Card> cards = asList(card1, card2,card3,card4, card5);
         // when
-        int judgeNumber = game.judgeCard(cards);
+        double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(9,judgeNumber);
+        assertEquals(9.07,judgeNumber);
     }
 }
