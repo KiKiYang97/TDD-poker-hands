@@ -68,7 +68,22 @@ public class PokerHandsGameTest {
     }
 
     @Test
-    public void should_return_two_pairs_when_judge_card_given_3H_3D_5S_9C_5D() {
+    public void should_return_pair_when_judge_card_given_KH_3D_5S_9C_KD() {
+        // given
+        Card  card1 = new Card(13, "H");
+        Card  card2 = new Card(3, "D");
+        Card  card3 = new Card(5, "S");
+        Card  card4 = new Card(9, "C");
+        Card  card5 = new Card(13, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        double judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(2.1309,judgeNumber);
+    }
+
+    @Test
+    public void should_return_two_pairs_when_judge_card_given_3H_5D_5S_9C_9D() {
         // given
         Card  card1 = new Card(3, "H");
         Card  card2 = new Card(5, "D");
@@ -80,6 +95,36 @@ public class PokerHandsGameTest {
         double judgeNumber = game.judgeCard(cards);
         // then
         assertEquals(3.090503,judgeNumber);
+    }
+
+    @Test
+    public void should_return_two_pairs_when_judge_card_given_3H_5D_5S_9C_5D() {
+        // given
+        Card  card1 = new Card(3, "H");
+        Card  card2 = new Card(3, "D");
+        Card  card3 = new Card(5, "S");
+        Card  card4 = new Card(9, "C");
+        Card  card5 = new Card(9, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        double judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(3.090305,judgeNumber);
+    }
+
+    @Test
+    public void should_return_two_pairs_when_judge_card_given_3H_3D_5S_5C_9D() {
+        // given
+        Card  card1 = new Card(3, "H");
+        Card  card2 = new Card(3, "D");
+        Card  card3 = new Card(5, "S");
+        Card  card4 = new Card(5, "C");
+        Card  card5 = new Card(9, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        double judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(3.050309,judgeNumber);
     }
 
     @Test
@@ -95,6 +140,21 @@ public class PokerHandsGameTest {
         double judgeNumber = game.judgeCard(cards);
         // then
         assertEquals(4.0309,judgeNumber);
+    }
+
+    @Test
+    public void should_return_three_of_a_kind_when_judge_card_given_3H_5D_9S_9C_9D() {
+        // given
+        Card  card1 = new Card(3, "H");
+        Card  card2 = new Card(5, "D");
+        Card  card3 = new Card(9, "S");
+        Card  card4 = new Card(9, "C");
+        Card  card5 = new Card(9, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        double judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(4.0905,judgeNumber);
     }
 
     @Test
