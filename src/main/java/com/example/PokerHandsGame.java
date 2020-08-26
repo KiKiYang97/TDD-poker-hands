@@ -62,7 +62,12 @@ public class PokerHandsGame {
                         return 3;
                     }
                 } else if (numbers.size() == 2) {
-                    return 7;
+                    if (cards.get(0).getNumber().equals(cards.get(3).getNumber()) ||
+                        cards.get(1).getNumber().equals(cards.get(4).getNumber())) {
+                        return 8;
+                    } else {
+                        return 7;
+                    }
                 }
             } else {
                 return 6;
