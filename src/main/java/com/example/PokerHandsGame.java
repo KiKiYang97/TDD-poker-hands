@@ -61,6 +61,10 @@ public class PokerHandsGame {
                     return 3;
                 }
             }
+        } else {
+            if (types.size() != 1) {
+                return 5;
+            }
         }
 
         return 0;

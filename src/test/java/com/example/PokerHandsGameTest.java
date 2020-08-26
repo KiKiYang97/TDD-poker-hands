@@ -96,4 +96,21 @@ public class PokerHandsGameTest {
         // then
         assertEquals(4,judgeNumber);
     }
+
+    @Test
+    public void should_return_straight_when_judge_card_given_3H_4D_5S_6C_7D() {
+        // given
+        Card  card1 = new Card(3, "H");
+        Card  card2 = new Card(4, "D");
+        Card  card3 = new Card(5, "S");
+        Card  card4 = new Card(6, "C");
+        Card  card5 = new Card(7, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        int judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(5,judgeNumber);
+    }
+
+
 }
