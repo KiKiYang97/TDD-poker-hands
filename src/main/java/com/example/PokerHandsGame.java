@@ -75,6 +75,8 @@ public class PokerHandsGame {
         } else {
             if (types.size() != 1) {
                 return 5;
+            } else {
+                return 9;
             }
         }
 
