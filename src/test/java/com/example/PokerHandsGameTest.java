@@ -231,4 +231,23 @@ public class PokerHandsGameTest {
         // then
         assertEquals(9.07,judgeNumber);
     }
+
+    @Test
+    public void should_white_wins_when_play_given_black_2H3D5S9CKD_white_2C3H4S8CAH() {
+        // given
+        // when
+        String message = game.play("2H 3D 5S 9C KD","2C 3H 4S 8C AH");
+        // then
+        assertEquals("White wins. - with high card",message);
+    }
+
+    @Test
+    public void should_black_wins_when_play_given_black_2H4S4C2D4H_white_2S8SASQS3S() {
+        // given
+        // when
+        String message = game.play("2H 4S 4C 2D 4H","2S 8S AS QS 3S");
+        // then
+        assertEquals("Black wins. - with full house",message);
+    }
+
 }

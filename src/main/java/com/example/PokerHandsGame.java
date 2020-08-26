@@ -5,6 +5,17 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PokerHandsGame {
+
+    public static void main(String[] args) {
+        System.out.println("Black:");
+        Scanner scanner = new Scanner(System.in);
+        String black = scanner.nextLine();
+        System.out.println("White:");
+        String white = scanner.nextLine();
+        PokerHandsGame game = new PokerHandsGame();
+        System.out.println(game.play(black,white));
+    }
+
     public List<Card> translate(String input) {
         List<String> cardStrings = Arrays.asList(input.split(" "));
         return cardStrings.stream().map(cardString -> {
@@ -147,5 +158,37 @@ public class PokerHandsGame {
 
     private double isHighCard(List<Card> cards) {
         return 1.0 + cards.get(4).getNumber() * 0.01;
+    }
+
+    public String play(String black, String white) {
+        List<Card> blackCards = translate(black);
+        List<Card> whiteCards = translate(white);
+        double blackNumber = judgeCard(blackCards);
+        double whiteNumber = judgeCard(whiteCards);
+        StringBuilder stringBuilder = new StringBuilder();
+        if (blackNumber == whiteNumber) {
+            stringBuilder.append("Tie.");
+        } else{
+            int result;
+            if (blackNumber > whiteNumber) {
+                stringBuilder.append("Black wins.");
+                result = (int)blackNumber;
+            } else {
+                stringBuilder.append("White wins.");
+                result = (int)whiteNumber;
+            }
+            switch (result) {
+                case 1: stringBuilder.append(" - with high card");break;
+                case 2: stringBuilder.append(" - with pair");break;
+                case 3: stringBuilder.append(" - with two pairs");break;
+                case 4: stringBuilder.append(" - with three of a kind");break;
+                case 5: stringBuilder.append(" - with straight");break;
+                case 6: stringBuilder.append(" - with flush");break;
+                case 7: stringBuilder.append(" - with full house");break;
+                case 8: stringBuilder.append(" - with four of a kind");break;
+                case 9: stringBuilder.append(" - with straight flush");break;
+            }
+        }
+        return stringBuilder.toString();
     }
 }
