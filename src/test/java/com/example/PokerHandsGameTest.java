@@ -81,4 +81,19 @@ public class PokerHandsGameTest {
         // then
         assertEquals(3,judgeNumber);
     }
+
+    @Test
+    public void should_return_three_of_a_kind_when_judge_card_given_3H_3D_5S_9C_3D() {
+        // given
+        Card  card1 = new Card(3, "H");
+        Card  card2 = new Card(3, "D");
+        Card  card3 = new Card(5, "S");
+        Card  card4 = new Card(9, "C");
+        Card  card5 = new Card(3, "D");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        int judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(4,judgeNumber);
+    }
 }

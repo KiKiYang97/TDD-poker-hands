@@ -1,6 +1,8 @@
 package com.example;
 
-public class Card {
+import java.util.Comparator;
+
+public class Card implements Comparable<Card> {
     private Integer number;
     private String type;
 
@@ -34,5 +36,15 @@ public class Card {
                 "number=" + number +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Card card2) {
+        if (getNumber()<card2.getNumber()) {
+            return -1;
+        } else if (getNumber() > card2.getNumber()) {
+            return 1;
+        }
+        return 0;
     }
 }

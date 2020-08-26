@@ -1,9 +1,6 @@
 package com.example;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PokerHandsGame {
@@ -48,6 +45,7 @@ public class PokerHandsGame {
             numbers.add(card.getNumber());
             return card;
         }).collect(Collectors.toList());
+        Collections.sort(cards);
         boolean straight = numbers.size() == 5 && (Integer) numbers.toArray()[4] - (Integer) numbers.toArray()[0] == 4;
         if (!straight) {
             if (numbers.size() == 5 && types.size() != 1) {
@@ -55,7 +53,13 @@ public class PokerHandsGame {
             } else if (numbers.size() == 4 && types.size() != 1) {
                 return 2;
             } else if (numbers.size() == 3 && types.size() != 1) {
-                return 3;
+                if (cards.get(0).getNumber().equals(cards.get(2).getNumber()) ||
+                        cards.get(1).getNumber().equals(cards.get(3).getNumber()) ||
+                        cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
+                    return 4;
+                } else {
+                    return 3;
+                }
             }
         }
 
