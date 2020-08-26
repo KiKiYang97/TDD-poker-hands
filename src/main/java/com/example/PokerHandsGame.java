@@ -7,13 +7,18 @@ import java.util.stream.Collectors;
 public class PokerHandsGame {
 
     public static void main(String[] args) {
-        System.out.println("Black:");
         Scanner scanner = new Scanner(System.in);
-        String black = scanner.nextLine();
-        System.out.println("White:");
-        String white = scanner.nextLine();
-        PokerHandsGame game = new PokerHandsGame();
-        System.out.println(game.play(black,white));
+        for (;;) {
+            System.out.println("Black:");
+            String black = scanner.nextLine();
+            if (black.equals("")) {
+                break;
+            }
+            System.out.println("White:");
+            String white = scanner.nextLine();
+            PokerHandsGame game = new PokerHandsGame();
+            System.out.println(game.play(black,white));
+        }
     }
 
     public List<Card> translate(String input) {
@@ -94,38 +99,38 @@ public class PokerHandsGame {
     }
 
     private double isStraightFlush(List<Card> cards) {
-        return 9.0 + cards.get(4).getNumber() * 0.01;
+        return fomateDouble(9.0 + cards.get(4).getNumber() * 0.01, 2);
     }
 
     private double isFourOfAKind(List<Card> cards) {
         if (cards.get(0).getNumber().equals(cards.get(3).getNumber())) {
-            return 8.0 + cards.get(0).getNumber() * 0.01;
+            return fomateDouble(8.0 + cards.get(0).getNumber() * 0.01, 2);
         } else {
-            return 8.0 + cards.get(4).getNumber() * 0.01;
+            return fomateDouble(8.0 + cards.get(4).getNumber() * 0.01, 2);
         }
     }
 
     private double isFullHouse(List<Card> cards) {
         if (cards.get(0).getNumber().equals(cards.get(2).getNumber())) {
-            return 7.0 + cards.get(0).getNumber() * 0.01;
+            return fomateDouble(7.0 + cards.get(0).getNumber() * 0.01, 2);
         } else {
-            return 7.0 + cards.get(4).getNumber() * 0.01;
+            return fomateDouble(7.0 + cards.get(4).getNumber() * 0.01, 2);
         }
     }
 
     private double isFlush(List<Card> cards) {
-        return 6.0 + cards.get(4).getNumber() * 0.01;
+        return fomateDouble(6.0 + cards.get(4).getNumber() * 0.01, 2);
     }
 
     private double isStraight(List<Card> cards) {
-        return 5.0 + cards.get(4).getNumber() * 0.01;
+        return fomateDouble(5.0 + cards.get(4).getNumber() * 0.01, 2);
     }
 
     private double isThreeOfAKind(List<Card> cards) {
         if (cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
-            return 4.0 + cards.get(4).getNumber() * 0.01 + cards.get(1).getNumber() * 0.0001;
+            return fomateDouble(4.0 + cards.get(4).getNumber() * 0.01 + cards.get(1).getNumber() * 0.0001, 4);
         } else {
-            return 4.0 + cards.get(2).getNumber() * 0.01 + cards.get(4).getNumber() * 0.0001;
+            return fomateDouble(4.0 + cards.get(2).getNumber() * 0.01 + cards.get(4).getNumber() * 0.0001, 4);
         }
     }
 
@@ -138,8 +143,7 @@ public class PokerHandsGame {
                 result = cards.get(i).getNumber() * 0.01 + result * 0.01;
             }
         }
-        BigDecimal b = new BigDecimal(3.0 + result + (int)numbers.stream().findFirst().get() * 0.000001);
-        return b.setScale(6,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        return fomateDouble(3.0 + result + (int)numbers.stream().findFirst().get() * 0.000001, 6);
     }
 
     private double isPair(List<Card> cards) {
@@ -153,11 +157,20 @@ public class PokerHandsGame {
                 }
             }
         }
-        return result;
+        return fomateDouble(result, 4);
     }
 
     private double isHighCard(List<Card> cards) {
-        return 1.0 + cards.get(4).getNumber() * 0.01;
+        double result = 0d;
+        for (int i = 0; i < cards.size(); i++) {
+            result = result * 0.01 + cards.get(i).getNumber() * 0.01;
+        }
+        return fomateDouble(result + 1.0, 10);
+    }
+
+    private double fomateDouble(double number, int bit) {
+        BigDecimal b = new BigDecimal(number);
+        return b.setScale(bit, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public String play(String black, String white) {

@@ -49,7 +49,7 @@ public class PokerHandsGameTest {
         // when
         double judgeNumber = game.judgeCard(cards);
         // then
-        assertEquals(1.13,judgeNumber);
+        assertEquals(1.1309050302,judgeNumber);
     }
 
     @Test
