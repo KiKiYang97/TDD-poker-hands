@@ -1,7 +1,9 @@
 package com.example;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class PokerHandsGame {
@@ -33,5 +35,22 @@ public class PokerHandsGame {
             card.setType(cardString.substring(1, 2));
             return card;
         }).collect(Collectors.toList());
+    }
+
+    public int judgeCard(List<Card> cards) {
+        Set<String> types = new HashSet<>();
+        cards = cards.stream().map(card -> {
+            types.add(card.getType());
+            return card;
+        }).collect(Collectors.toList());
+        Set<Integer> numbers = new HashSet<>();
+        cards = cards.stream().map(card -> {
+            numbers.add(card.getNumber());
+            return card;
+        }).collect(Collectors.toList());
+        if (numbers.size() == 5 && (Integer)numbers.toArray()[4] - (Integer)numbers.toArray()[0] != 4 && types.size() != 1) {
+            return 1;
+        }
+        return 0;
     }
 }
