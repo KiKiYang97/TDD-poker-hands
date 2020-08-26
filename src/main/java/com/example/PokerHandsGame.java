@@ -61,6 +61,8 @@ public class PokerHandsGame {
                     } else {
                         return 3;
                     }
+                } else if (numbers.size() == 2) {
+                    return 7;
                 }
             } else {
                 return 6;
