@@ -54,6 +54,8 @@ public class PokerHandsGame {
                 return 1;
             } else if (numbers.size() == 4 && types.size() != 1) {
                 return 2;
+            } else if (numbers.size() == 3 && types.size() != 1) {
+                return 3;
             }
         }
 
