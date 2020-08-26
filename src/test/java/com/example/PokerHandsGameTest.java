@@ -112,5 +112,19 @@ public class PokerHandsGameTest {
         assertEquals(5,judgeNumber);
     }
 
+    @Test
+    public void should_return_flush_when_judge_card_given_2H_3H_5H_9H_KH() {
+        // given
+        Card  card1 = new Card(2, "H");
+        Card  card2 = new Card(3, "H");
+        Card  card3 = new Card(5, "H");
+        Card  card4 = new Card(9, "H");
+        Card  card5 = new Card(13, "H");
+        List<Card> cards = asList(card1, card2,card3,card4, card5);
+        // when
+        int judgeNumber = game.judgeCard(cards);
+        // then
+        assertEquals(6,judgeNumber);
+    }
 
 }

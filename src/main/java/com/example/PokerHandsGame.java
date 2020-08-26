@@ -48,18 +48,22 @@ public class PokerHandsGame {
         Collections.sort(cards);
         boolean straight = numbers.size() == 5 && (Integer) numbers.toArray()[4] - (Integer) numbers.toArray()[0] == 4;
         if (!straight) {
-            if (numbers.size() == 5 && types.size() != 1) {
-                return 1;
-            } else if (numbers.size() == 4 && types.size() != 1) {
-                return 2;
-            } else if (numbers.size() == 3 && types.size() != 1) {
-                if (cards.get(0).getNumber().equals(cards.get(2).getNumber()) ||
-                        cards.get(1).getNumber().equals(cards.get(3).getNumber()) ||
-                        cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
-                    return 4;
-                } else {
-                    return 3;
+            if (types.size() != 1) {
+                if (numbers.size() == 5) {
+                    return 1;
+                } else if (numbers.size() == 4) {
+                    return 2;
+                } else if (numbers.size() == 3) {
+                    if (cards.get(0).getNumber().equals(cards.get(2).getNumber()) ||
+                            cards.get(1).getNumber().equals(cards.get(3).getNumber()) ||
+                            cards.get(2).getNumber().equals(cards.get(4).getNumber())) {
+                        return 4;
+                    } else {
+                        return 3;
+                    }
                 }
+            } else {
+                return 6;
             }
         } else {
             if (types.size() != 1) {
